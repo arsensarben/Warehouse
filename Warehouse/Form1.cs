@@ -1,18 +1,15 @@
 using System;
-using System.Windows.Forms;
+using System.Windows.Forms; 
 
-namespace WarehouseApp //  простір імен
+namespace Warehouse // Здесь название твоего проекта
 {
-    public partial class Form1 : Form
+    public partial class Form1 : Form // 2. ВОТ ГЛАВНАЯ ОШИБКА: у тебя пропало ": Form"
     {
-        // 1. Створюємо "мозок" нашої програми — екземпляр складу
         private Warehouse myWarehouse = new Warehouse();
 
         public Form1()
         {
             InitializeComponent();
-
-            // 2. Викликаємо метод, щоб відмалювати таблицю при запуску
             UpdateGrid();
         }
 

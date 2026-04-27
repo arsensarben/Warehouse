@@ -40,7 +40,6 @@
             dataGridViewProducts.Name = "dataGridViewProducts";
             dataGridViewProducts.Size = new Size(776, 426);
             dataGridViewProducts.TabIndex = 0;
-            dataGridViewProducts.CellContentClick += dataGridView1_CellContentClick;
             // 
             // btnAddProduct
             // 

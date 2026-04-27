@@ -28,12 +28,45 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "Form1";
+            dataGridViewProducts = new DataGridView();
+            btnAddProduct = new Button();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewProducts).BeginInit();
+            SuspendLayout();
+            // 
+            // dataGridViewProducts
+            // 
+            dataGridViewProducts.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewProducts.Location = new Point(12, 12);
+            dataGridViewProducts.Name = "dataGridViewProducts";
+            dataGridViewProducts.Size = new Size(776, 426);
+            dataGridViewProducts.TabIndex = 0;
+            dataGridViewProducts.CellContentClick += dataGridView1_CellContentClick;
+            // 
+            // btnAddProduct
+            // 
+            btnAddProduct.Location = new Point(318, 86);
+            btnAddProduct.Name = "btnAddProduct";
+            btnAddProduct.Size = new Size(92, 29);
+            btnAddProduct.TabIndex = 1;
+            btnAddProduct.Text = "Додати товар";
+            btnAddProduct.UseVisualStyleBackColor = true;
+            // 
+            // Form1
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(800, 450);
+            Controls.Add(btnAddProduct);
+            Controls.Add(dataGridViewProducts);
+            Name = "Form1";
+            Text = "Form1";
+            ((System.ComponentModel.ISupportInitialize)dataGridViewProducts).EndInit();
+            ResumeLayout(false);
         }
 
         #endregion
+
+        private DataGridView dataGridViewProducts;
+        private Button btnAddProduct;
     }
 }

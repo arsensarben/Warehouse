@@ -1,6 +1,6 @@
 ﻿namespace Warehouse
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         ///  Required designer variable.
@@ -43,21 +43,22 @@
             // 
             // btnAddProduct
             // 
-            btnAddProduct.Location = new Point(318, 86);
+            btnAddProduct.Location = new Point(349, 97);
             btnAddProduct.Name = "btnAddProduct";
             btnAddProduct.Size = new Size(92, 29);
             btnAddProduct.TabIndex = 1;
             btnAddProduct.Text = "Додати товар";
             btnAddProduct.UseVisualStyleBackColor = true;
+            btnAddProduct.Click += btnAddProduct_Click;
             // 
-            // Form1
+            // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
             Controls.Add(btnAddProduct);
             Controls.Add(dataGridViewProducts);
-            Name = "Form1";
+            Name = "MainForm";
             Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)dataGridViewProducts).EndInit();
             ResumeLayout(false);

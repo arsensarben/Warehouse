@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Warehouse.Models;
 
-namespace Warehouse
+namespace Warehouse.Services
 {
     public class Warehouse
     {

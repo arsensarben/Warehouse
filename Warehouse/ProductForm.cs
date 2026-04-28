@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
+using Warehouse.Models;
+using Warehouse.Services;
 
 namespace Warehouse
 {

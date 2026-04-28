@@ -1,11 +1,13 @@
 using System;
 using System.Windows.Forms;
+using Warehouse.Models;
+using Warehouse.Services;
 
 namespace Warehouse // Здесь название твоего проекта
 {
     public partial class MainForm : Form
     {
-        private Warehouse myWarehouse = new Warehouse();
+        private Warehouse.Services.Warehouse myWarehouse = new Warehouse.Services.Warehouse();
 
         public MainForm()
         {

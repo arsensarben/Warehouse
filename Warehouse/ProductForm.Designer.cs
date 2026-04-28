@@ -42,7 +42,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(66, 87);
+            label1.Location = new Point(31, 36);
             label1.Name = "label1";
             label1.Size = new Size(39, 15);
             label1.TabIndex = 0;
@@ -51,7 +51,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(66, 119);
+            label2.Location = new Point(31, 68);
             label2.Name = "label2";
             label2.Size = new Size(133, 15);
             label2.TabIndex = 1;
@@ -60,7 +60,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(66, 149);
+            label3.Location = new Point(31, 98);
             label3.Name = "label3";
             label3.Size = new Size(32, 15);
             label3.TabIndex = 2;
@@ -68,14 +68,14 @@
             // 
             // textBoxName
             // 
-            textBoxName.Location = new Point(255, 84);
+            textBoxName.Location = new Point(220, 33);
             textBoxName.Name = "textBoxName";
             textBoxName.Size = new Size(120, 23);
             textBoxName.TabIndex = 3;
             // 
             // textBoxUnit
             // 
-            textBoxUnit.Location = new Point(255, 116);
+            textBoxUnit.Location = new Point(220, 65);
             textBoxUnit.Name = "textBoxUnit";
             textBoxUnit.Size = new Size(120, 23);
             textBoxUnit.TabIndex = 4;
@@ -83,7 +83,7 @@
             // numPrice
             // 
             numPrice.DecimalPlaces = 2;
-            numPrice.Location = new Point(255, 149);
+            numPrice.Location = new Point(220, 98);
             numPrice.Maximum = new decimal(new int[] { 1000000, 0, 0, 0 });
             numPrice.Name = "numPrice";
             numPrice.Size = new Size(120, 23);
@@ -91,7 +91,7 @@
             // 
             // btnOK
             // 
-            btnOK.Location = new Point(106, 223);
+            btnOK.Location = new Point(71, 150);
             btnOK.Name = "btnOK";
             btnOK.Size = new Size(75, 23);
             btnOK.TabIndex = 6;
@@ -102,7 +102,7 @@
             // btnCancel
             // 
             btnCancel.DialogResult = DialogResult.Cancel;
-            btnCancel.Location = new Point(255, 223);
+            btnCancel.Location = new Point(220, 150);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(75, 23);
             btnCancel.TabIndex = 7;
@@ -113,7 +113,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(440, 240);
             Controls.Add(btnCancel);
             Controls.Add(btnOK);
             Controls.Add(numPrice);

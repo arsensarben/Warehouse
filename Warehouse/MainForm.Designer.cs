@@ -30,6 +30,8 @@
         {
             dataGridViewProducts = new DataGridView();
             btnAddProduct = new Button();
+            btnCreateWaybill = new Button();
+            btnDeleteProduct = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridViewProducts).BeginInit();
             SuspendLayout();
             // 
@@ -43,7 +45,7 @@
             // 
             // btnAddProduct
             // 
-            btnAddProduct.Location = new Point(349, 97);
+            btnAddProduct.Location = new Point(195, 115);
             btnAddProduct.Name = "btnAddProduct";
             btnAddProduct.Size = new Size(92, 29);
             btnAddProduct.TabIndex = 1;
@@ -51,11 +53,33 @@
             btnAddProduct.UseVisualStyleBackColor = true;
             btnAddProduct.Click += btnAddProduct_Click;
             // 
+            // btnCreateWaybill
+            // 
+            btnCreateWaybill.Location = new Point(457, 115);
+            btnCreateWaybill.Name = "btnCreateWaybill";
+            btnCreateWaybill.Size = new Size(137, 29);
+            btnCreateWaybill.TabIndex = 2;
+            btnCreateWaybill.Text = "Оформити накладну";
+            btnCreateWaybill.UseVisualStyleBackColor = true;
+            btnCreateWaybill.Click += btnCreateWaybill_Click;
+            // 
+            // btnDeleteProduct
+            // 
+            btnDeleteProduct.Location = new Point(316, 115);
+            btnDeleteProduct.Name = "btnDeleteProduct";
+            btnDeleteProduct.Size = new Size(111, 29);
+            btnDeleteProduct.TabIndex = 3;
+            btnDeleteProduct.Text = "Видалити товар";
+            btnDeleteProduct.UseVisualStyleBackColor = true;
+            btnDeleteProduct.Click += btnDeleteProduct_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(btnDeleteProduct);
+            Controls.Add(btnCreateWaybill);
             Controls.Add(btnAddProduct);
             Controls.Add(dataGridViewProducts);
             Name = "MainForm";
@@ -68,5 +92,7 @@
 
         private DataGridView dataGridViewProducts;
         private Button btnAddProduct;
+        private Button btnCreateWaybill;
+        private Button btnDeleteProduct;
     }
 }

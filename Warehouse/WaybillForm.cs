@@ -46,7 +46,7 @@ namespace Warehouse
             };
 
             // Додаємо вибраний товар і його кількість у словник накладної
-            CreatedWaybill.Items.Add(selectedProduct, quantity);
+            CreatedWaybill.Items.Add(new WaybillItem { Product = selectedProduct, Quantity = quantity });
 
             // Кажемо системі, що все добре, і закриваємо вікно
             this.DialogResult = DialogResult.OK;

@@ -84,6 +84,7 @@
             Controls.Add(dataGridViewProducts);
             Name = "MainForm";
             Text = "Form1";
+            FormClosing += MainForm_FormClosing;
             ((System.ComponentModel.ISupportInitialize)dataGridViewProducts).EndInit();
             ResumeLayout(false);
         }

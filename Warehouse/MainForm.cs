@@ -13,7 +13,8 @@ namespace Warehouse
         public MainForm()
         {
             InitializeComponent();
-            UpdateGrid();
+            myWarehouse.LoadData(); // «читуЇмо дан≥ з файлу
+            UpdateGrid();           // ѕоказуЇмо њх у таблиц≥
         }
 
         // ћетод оновленн€ таблиц≥
@@ -103,6 +104,11 @@ namespace Warehouse
                 // якщо таблиц€ порожн€ або користувач кл≥кнув кудись не туди
                 MessageBox.Show("Ѕудь ласка, обер≥ть товар дл€ видаленн€!", "”вага", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            myWarehouse.SaveData(); // «бер≥гаЇмо дан≥ перед тим, €к в≥кно зникне
         }
     }
 }

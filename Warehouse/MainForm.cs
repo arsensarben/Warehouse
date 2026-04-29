@@ -24,7 +24,7 @@ namespace Warehouse
             // при спробі зчитати дані, які в цей момент змінюються на складі
             var safeData = myWarehouse.Inventory.ToArray();
 
-            dataGridViewProducts.DataSource = safeData;
+            dataGridView1.DataSource = safeData;
         }
 
         // Кнопка додавання нового товару в каталог
@@ -80,10 +80,10 @@ namespace Warehouse
         private void btnDeleteProduct_Click(object sender, EventArgs e)
         {
             // Перевіряємо, чи взагалі вибрано якийсь рядок у таблиці
-            if (dataGridViewProducts.CurrentRow != null)
+            if (dataGridView1.CurrentRow != null)
             {
                 // Дістаємо товар з виділеного рядка (там, де стоїть чорна стрілочка)
-                Product selectedProduct = (Product)dataGridViewProducts.CurrentRow.DataBoundItem;
+                Product selectedProduct = (Product)dataGridView1.CurrentRow.DataBoundItem;
 
                 // Виводимо вікно з підтвердженням
                 DialogResult result = MessageBox.Show(
@@ -131,6 +131,15 @@ namespace Warehouse
                 myWarehouse.Waybills.Clear();
                 UpdateGrid();
             }
+        }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            string query = txtSearch.Text.ToLower();
+            var filteredList = myWarehouse.Inventory.Where(p => p.Name.ToLower().Contains(query)).ToList();
+
+            dataGridView1.DataSource = null;
+            dataGridView1.DataSource = filteredList;
         }
     }
 }

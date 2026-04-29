@@ -28,26 +28,29 @@
         /// </summary>
         private void InitializeComponent()
         {
-            dataGridViewProducts = new DataGridView();
+            dataGridView1 = new DataGridView();
             btnAddProduct = new Button();
             btnCreateWaybill = new Button();
             btnDeleteProduct = new Button();
             btnHistory = new Button();
             btnResetBase = new Button();
-            ((System.ComponentModel.ISupportInitialize)dataGridViewProducts).BeginInit();
+            txtSearch = new TextBox();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
-            // dataGridViewProducts
+            // dataGridView1
             // 
-            dataGridViewProducts.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewProducts.Location = new Point(12, 12);
-            dataGridViewProducts.Name = "dataGridViewProducts";
-            dataGridViewProducts.Size = new Size(776, 426);
-            dataGridViewProducts.TabIndex = 0;
+            dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Location = new Point(12, 36);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.Size = new Size(776, 333);
+            dataGridView1.TabIndex = 0;
             // 
             // btnAddProduct
             // 
-            btnAddProduct.Location = new Point(32, 115);
+            btnAddProduct.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnAddProduct.Location = new Point(11, 375);
             btnAddProduct.Name = "btnAddProduct";
             btnAddProduct.Size = new Size(92, 29);
             btnAddProduct.TabIndex = 1;
@@ -57,7 +60,8 @@
             // 
             // btnCreateWaybill
             // 
-            btnCreateWaybill.Location = new Point(290, 115);
+            btnCreateWaybill.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnCreateWaybill.Location = new Point(269, 375);
             btnCreateWaybill.Name = "btnCreateWaybill";
             btnCreateWaybill.Size = new Size(137, 29);
             btnCreateWaybill.TabIndex = 2;
@@ -67,7 +71,8 @@
             // 
             // btnDeleteProduct
             // 
-            btnDeleteProduct.Location = new Point(149, 115);
+            btnDeleteProduct.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnDeleteProduct.Location = new Point(128, 375);
             btnDeleteProduct.Name = "btnDeleteProduct";
             btnDeleteProduct.Size = new Size(111, 29);
             btnDeleteProduct.TabIndex = 3;
@@ -77,7 +82,8 @@
             // 
             // btnHistory
             // 
-            btnHistory.Location = new Point(452, 115);
+            btnHistory.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnHistory.Location = new Point(431, 375);
             btnHistory.Name = "btnHistory";
             btnHistory.Size = new Size(121, 29);
             btnHistory.TabIndex = 4;
@@ -87,6 +93,7 @@
             // 
             // btnResetBase
             // 
+            btnResetBase.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnResetBase.Location = new Point(670, 415);
             btnResetBase.Name = "btnResetBase";
             btnResetBase.Size = new Size(118, 23);
@@ -95,31 +102,44 @@
             btnResetBase.UseVisualStyleBackColor = true;
             btnResetBase.Click += btnResetBase_Click;
             // 
+            // txtSearch
+            // 
+            txtSearch.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            txtSearch.Location = new Point(12, 7);
+            txtSearch.Name = "txtSearch";
+            txtSearch.PlaceholderText = "Пошук...";
+            txtSearch.Size = new Size(776, 23);
+            txtSearch.TabIndex = 6;
+            txtSearch.TextChanged += txtSearch_TextChanged;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(txtSearch);
             Controls.Add(btnResetBase);
             Controls.Add(btnHistory);
             Controls.Add(btnDeleteProduct);
             Controls.Add(btnCreateWaybill);
             Controls.Add(btnAddProduct);
-            Controls.Add(dataGridViewProducts);
+            Controls.Add(dataGridView1);
             Name = "MainForm";
             Text = "Form1";
             FormClosing += MainForm_FormClosing;
-            ((System.ComponentModel.ISupportInitialize)dataGridViewProducts).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
-        private DataGridView dataGridViewProducts;
+        private DataGridView dataGridView1;
         private Button btnAddProduct;
         private Button btnCreateWaybill;
         private Button btnDeleteProduct;
         private Button btnHistory;
         private Button btnResetBase;
+        private TextBox txtSearch;
     }
 }

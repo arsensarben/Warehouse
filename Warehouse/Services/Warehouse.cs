@@ -50,24 +50,23 @@ namespace Warehouse.Services
             }
         }
 
-        // Метод збереження у файл
-        public void SaveData()
+        public void SaveData(string filePath = "warehouse_data.json")
         {
             // Налаштовуємо красиве форматування JSON (з відступами)
             var options = new JsonSerializerOptions { WriteIndented = true };
             // Перетворюємо весь наш склад (товари і накладні) у текст
             string json = JsonSerializer.Serialize(this, options);
-            // Записуємо текст у файл
-            File.WriteAllText("warehouse_data.json", json);
+            // Записуємо текст у файл (стандартний або обраний користувачем)
+            File.WriteAllText(filePath, json);
         }
 
         // Метод завантаження з файлу
-        public void LoadData()
+        public void LoadData(string filePath = "warehouse_data.json")
         {
             // Перевіряємо, чи існує взагалі такий файл (щоб не було помилки при першому запуску)
-            if (File.Exists("warehouse_data.json"))
+            if (File.Exists(filePath))
             {
-                string json = File.ReadAllText("warehouse_data.json");
+                string json = File.ReadAllText(filePath);
                 // Розшифровуємо текст назад у об'єкт складу
                 var loaded = JsonSerializer.Deserialize<Warehouse>(json);
 

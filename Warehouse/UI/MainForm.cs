@@ -165,17 +165,89 @@ namespace Warehouse
             }
         }
 
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if (dataGridView1.Rows[e.RowIndex].DataBoundItem is Product p && p.Quantity == 0)
             {
                 dataGridView1.Rows[e.RowIndex].DefaultCellStyle.BackColor = System.Drawing.Color.LightCoral;
             }
+        }
+
+        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // 1. Вказуємо шлях до нашої майбутньої папки (вона буде поруч з .exe)
+            string backupFolder = Path.Combine(Application.StartupPath, "Backups");
+
+            // 2. Якщо такої папки ще немає — створюємо її
+            if (!Directory.Exists(backupFolder))
+            {
+                Directory.CreateDirectory(backupFolder);
+            }
+
+            SaveFileDialog sfd = new SaveFileDialog();
+            // 3. Наказуємо вікну відкриватися рівно в цій папці
+            sfd.InitialDirectory = backupFolder;
+            sfd.Filter = "JSON files (*.json)|*.json";
+
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                myWarehouse.SaveData(sfd.FileName);
+                MessageBox.Show("Дані успішно збережено в окрему папку!");
+            }
+        }
+
+
+        private void openAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string backupFolder = Path.Combine(Application.StartupPath, "Backups");
+            if (!Directory.Exists(backupFolder))
+            {
+                Directory.CreateDirectory(backupFolder);
+            }
+
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.InitialDirectory = backupFolder; // Шукаємо файли одразу тут
+            ofd.Filter = "JSON files (*.json)|*.json";
+
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                myWarehouse.LoadData(ofd.FileName);
+                dataGridView1.DataSource = null;
+                dataGridView1.DataSource = myWarehouse.Inventory;
+                MessageBox.Show("Дані успішно завантажено!");
+            }
+        }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            myWarehouse.SaveData();
+            MessageBox.Show("Збережено!");
+        }
+
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            myWarehouse.LoadData();
+            dataGridView1.DataSource = null;
+            dataGridView1.DataSource = myWarehouse.Inventory;
+            MessageBox.Show("Завантажено!");
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(
+                "Програма управління складом \n\n" +
+                "Save — швидке збереження.\n" +
+                "Save as — копія у Backups.\n" +
+                "Open as — завантаження копії.",
+                "Довідка",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information
+            );
         }
     }
 }

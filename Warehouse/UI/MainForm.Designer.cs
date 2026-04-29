@@ -36,7 +36,18 @@
             btnResetBase = new Button();
             txtSearch = new TextBox();
             btnEditProduct = new Button();
+            menuStrip1 = new MenuStrip();
+            fileToolStripMenuItem = new ToolStripMenuItem();
+            openToolStripMenuItem = new ToolStripMenuItem();
+            openAsToolStripMenuItem = new ToolStripMenuItem();
+            toolStripMenuItem1 = new ToolStripSeparator();
+            saveToolStripMenuItem = new ToolStripMenuItem();
+            saveAsToolStripMenuItem = new ToolStripMenuItem();
+            toolStripMenuItem2 = new ToolStripSeparator();
+            exitToolStripMenuItem = new ToolStripMenuItem();
+            helpToolStripMenuItem = new ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // dataGridView1
@@ -44,16 +55,16 @@
             dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(12, 36);
+            dataGridView1.Location = new Point(12, 56);
             dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(776, 333);
+            dataGridView1.Size = new Size(776, 304);
             dataGridView1.TabIndex = 0;
             dataGridView1.CellFormatting += dataGridView1_CellFormatting;
             // 
             // btnAddProduct
             // 
             btnAddProduct.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnAddProduct.Location = new Point(11, 375);
+            btnAddProduct.Location = new Point(11, 368);
             btnAddProduct.Name = "btnAddProduct";
             btnAddProduct.Size = new Size(92, 29);
             btnAddProduct.TabIndex = 1;
@@ -64,7 +75,7 @@
             // btnCreateWaybill
             // 
             btnCreateWaybill.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnCreateWaybill.Location = new Point(381, 375);
+            btnCreateWaybill.Location = new Point(381, 368);
             btnCreateWaybill.Name = "btnCreateWaybill";
             btnCreateWaybill.Size = new Size(137, 29);
             btnCreateWaybill.TabIndex = 2;
@@ -75,7 +86,7 @@
             // btnDeleteProduct
             // 
             btnDeleteProduct.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnDeleteProduct.Location = new Point(254, 375);
+            btnDeleteProduct.Location = new Point(254, 368);
             btnDeleteProduct.Name = "btnDeleteProduct";
             btnDeleteProduct.Size = new Size(111, 29);
             btnDeleteProduct.TabIndex = 3;
@@ -86,7 +97,7 @@
             // btnHistory
             // 
             btnHistory.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnHistory.Location = new Point(530, 375);
+            btnHistory.Location = new Point(530, 368);
             btnHistory.Name = "btnHistory";
             btnHistory.Size = new Size(121, 29);
             btnHistory.TabIndex = 4;
@@ -108,7 +119,7 @@
             // txtSearch
             // 
             txtSearch.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            txtSearch.Location = new Point(12, 7);
+            txtSearch.Location = new Point(12, 27);
             txtSearch.Name = "txtSearch";
             txtSearch.PlaceholderText = "Пошук...";
             txtSearch.Size = new Size(776, 23);
@@ -118,13 +129,81 @@
             // btnEditProduct
             // 
             btnEditProduct.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnEditProduct.Location = new Point(116, 375);
+            btnEditProduct.Location = new Point(116, 368);
             btnEditProduct.Name = "btnEditProduct";
             btnEditProduct.Size = new Size(122, 29);
             btnEditProduct.TabIndex = 7;
             btnEditProduct.Text = "Редагувати товар";
             btnEditProduct.UseVisualStyleBackColor = true;
             btnEditProduct.Click += btnEditProduct_Click_1;
+            // 
+            // menuStrip1
+            // 
+            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, helpToolStripMenuItem });
+            menuStrip1.Location = new Point(0, 0);
+            menuStrip1.Name = "menuStrip1";
+            menuStrip1.Size = new Size(800, 24);
+            menuStrip1.TabIndex = 8;
+            menuStrip1.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { openToolStripMenuItem, openAsToolStripMenuItem, toolStripMenuItem1, saveToolStripMenuItem, saveAsToolStripMenuItem, toolStripMenuItem2, exitToolStripMenuItem });
+            fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            fileToolStripMenuItem.Size = new Size(37, 20);
+            fileToolStripMenuItem.Text = "File";
+            // 
+            // openToolStripMenuItem
+            // 
+            openToolStripMenuItem.Name = "openToolStripMenuItem";
+            openToolStripMenuItem.Size = new Size(117, 22);
+            openToolStripMenuItem.Text = "Open";
+            openToolStripMenuItem.Click += openToolStripMenuItem_Click;
+            // 
+            // openAsToolStripMenuItem
+            // 
+            openAsToolStripMenuItem.Name = "openAsToolStripMenuItem";
+            openAsToolStripMenuItem.Size = new Size(117, 22);
+            openAsToolStripMenuItem.Text = "Open as";
+            openAsToolStripMenuItem.Click += openAsToolStripMenuItem_Click;
+            // 
+            // toolStripMenuItem1
+            // 
+            toolStripMenuItem1.Name = "toolStripMenuItem1";
+            toolStripMenuItem1.Size = new Size(114, 6);
+            // 
+            // saveToolStripMenuItem
+            // 
+            saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            saveToolStripMenuItem.Size = new Size(117, 22);
+            saveToolStripMenuItem.Text = "Save";
+            saveToolStripMenuItem.Click += saveToolStripMenuItem_Click;
+            // 
+            // saveAsToolStripMenuItem
+            // 
+            saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
+            saveAsToolStripMenuItem.Size = new Size(117, 22);
+            saveAsToolStripMenuItem.Text = "Save as";
+            saveAsToolStripMenuItem.Click += saveAsToolStripMenuItem_Click;
+            // 
+            // toolStripMenuItem2
+            // 
+            toolStripMenuItem2.Name = "toolStripMenuItem2";
+            toolStripMenuItem2.Size = new Size(114, 6);
+            // 
+            // exitToolStripMenuItem
+            // 
+            exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            exitToolStripMenuItem.Size = new Size(117, 22);
+            exitToolStripMenuItem.Text = "Exit";
+            exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
+            // 
+            // helpToolStripMenuItem
+            // 
+            helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            helpToolStripMenuItem.Size = new Size(44, 20);
+            helpToolStripMenuItem.Text = "Help";
+            helpToolStripMenuItem.Click += helpToolStripMenuItem_Click;
             // 
             // MainForm
             // 
@@ -139,11 +218,14 @@
             Controls.Add(btnCreateWaybill);
             Controls.Add(btnAddProduct);
             Controls.Add(dataGridView1);
+            Controls.Add(menuStrip1);
+            MainMenuStrip = menuStrip1;
             Name = "MainForm";
             Text = "Керування складом";
             FormClosing += MainForm_FormClosing;
-            Load += MainForm_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            menuStrip1.ResumeLayout(false);
+            menuStrip1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -158,5 +240,15 @@
         private Button btnResetBase;
         private TextBox txtSearch;
         private Button btnEditProduct;
+        private MenuStrip menuStrip1;
+        private ToolStripMenuItem fileToolStripMenuItem;
+        private ToolStripMenuItem openToolStripMenuItem;
+        private ToolStripMenuItem openAsToolStripMenuItem;
+        private ToolStripSeparator toolStripMenuItem1;
+        private ToolStripMenuItem saveToolStripMenuItem;
+        private ToolStripMenuItem saveAsToolStripMenuItem;
+        private ToolStripSeparator toolStripMenuItem2;
+        private ToolStripMenuItem exitToolStripMenuItem;
+        private ToolStripMenuItem helpToolStripMenuItem;
     }
 }

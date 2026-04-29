@@ -41,6 +41,12 @@ namespace Warehouse
                 return;
             }
 
+            if (numPrice.Value <= 0)
+            {
+                MessageBox.Show("Ціна товару має бути більшою за нуль!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             if (_productToEdit != null)
             {
                 _productToEdit.Name = textBoxName.Text.Trim();
@@ -58,6 +64,7 @@ namespace Warehouse
                     LastDeliveryDate = DateTime.MinValue
                 };
             }
+
             this.DialogResult = DialogResult.OK;
             this.Close();
         }

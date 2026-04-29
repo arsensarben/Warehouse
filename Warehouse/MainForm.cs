@@ -33,6 +33,12 @@ namespace Warehouse
             ProductForm form = new ProductForm();
             if (form.ShowDialog() == DialogResult.OK)
             {
+                if (myWarehouse.Inventory.Any(p => p.Name.ToLower() == form.CreatedProduct.Name.ToLower()))
+                {
+                    MessageBox.Show("Товар з такою назвою вже існує на складі!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
                 myWarehouse.Inventory.Add(form.CreatedProduct);
                 UpdateGrid();
             }

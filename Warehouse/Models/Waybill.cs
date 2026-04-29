@@ -7,8 +7,25 @@ namespace Warehouse.Models
     // Клас для зберігання однієї позиції в накладній
     public class WaybillItem
     {
-        public Product Product { get; set; }
+        private Product _product;
+        public Product Product
+        {
+            get => _product;
+            set
+            {
+                _product = value;
+                if (value != null && string.IsNullOrEmpty(ProductNameSnapshot))
+                {
+                    ProductNameSnapshot = value.Name;
+                    ProductUnitSnapshot = value.Unit;
+                }
+            }
+        }
         public int Quantity { get; set; }
+
+        // Поля для збереження "скриншоту" даних
+        public string ProductNameSnapshot { get; set; }
+        public string ProductUnitSnapshot { get; set; }
     }
 
     // Клас самої накладної
@@ -20,11 +37,9 @@ namespace Warehouse.Models
 
         public List<WaybillItem> Items { get; set; } = new List<WaybillItem>();
 
-        // Спеціальна колонка для історії: показує тип операції текстом
         [JsonIgnore]
         public string Operation => IsIncoming ? "Прихід (+)" : "Витрата (-)";
 
-        // Спеціальна колонка для історії: виводить список товарів та їх кількість
         [JsonIgnore]
         public string Details
         {
@@ -35,7 +50,10 @@ namespace Warehouse.Models
                 var list = new System.Collections.Generic.List<string>();
                 foreach (var item in Items)
                 {
-                    list.Add($"{item.Product.Name}: {item.Quantity} {item.Product.Unit}");
+                    string name = !string.IsNullOrEmpty(item.ProductNameSnapshot) ? item.ProductNameSnapshot : item.Product?.Name;
+                    string unit = !string.IsNullOrEmpty(item.ProductUnitSnapshot) ? item.ProductUnitSnapshot : item.Product?.Unit;
+
+                    list.Add($"{name}: {item.Quantity} {unit}");
                 }
                 return string.Join("; ", list);
             }

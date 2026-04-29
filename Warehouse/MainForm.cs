@@ -169,5 +169,13 @@ namespace Warehouse
         {
 
         }
+
+        private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (dataGridView1.Rows[e.RowIndex].DataBoundItem is Product p && p.Quantity == 0)
+            {
+                dataGridView1.Rows[e.RowIndex].DefaultCellStyle.BackColor = System.Drawing.Color.LightCoral;
+            }
+        }
     }
 }

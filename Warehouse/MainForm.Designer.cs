@@ -32,6 +32,8 @@
             btnAddProduct = new Button();
             btnCreateWaybill = new Button();
             btnDeleteProduct = new Button();
+            btnHistory = new Button();
+            btnResetBase = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridViewProducts).BeginInit();
             SuspendLayout();
             // 
@@ -45,7 +47,7 @@
             // 
             // btnAddProduct
             // 
-            btnAddProduct.Location = new Point(195, 115);
+            btnAddProduct.Location = new Point(32, 115);
             btnAddProduct.Name = "btnAddProduct";
             btnAddProduct.Size = new Size(92, 29);
             btnAddProduct.TabIndex = 1;
@@ -55,7 +57,7 @@
             // 
             // btnCreateWaybill
             // 
-            btnCreateWaybill.Location = new Point(457, 115);
+            btnCreateWaybill.Location = new Point(290, 115);
             btnCreateWaybill.Name = "btnCreateWaybill";
             btnCreateWaybill.Size = new Size(137, 29);
             btnCreateWaybill.TabIndex = 2;
@@ -65,7 +67,7 @@
             // 
             // btnDeleteProduct
             // 
-            btnDeleteProduct.Location = new Point(316, 115);
+            btnDeleteProduct.Location = new Point(149, 115);
             btnDeleteProduct.Name = "btnDeleteProduct";
             btnDeleteProduct.Size = new Size(111, 29);
             btnDeleteProduct.TabIndex = 3;
@@ -73,11 +75,33 @@
             btnDeleteProduct.UseVisualStyleBackColor = true;
             btnDeleteProduct.Click += btnDeleteProduct_Click;
             // 
+            // btnHistory
+            // 
+            btnHistory.Location = new Point(452, 115);
+            btnHistory.Name = "btnHistory";
+            btnHistory.Size = new Size(121, 29);
+            btnHistory.TabIndex = 4;
+            btnHistory.Text = "Історія операцій";
+            btnHistory.UseVisualStyleBackColor = true;
+            btnHistory.Click += button1_Click;
+            // 
+            // btnResetBase
+            // 
+            btnResetBase.Location = new Point(670, 415);
+            btnResetBase.Name = "btnResetBase";
+            btnResetBase.Size = new Size(118, 23);
+            btnResetBase.TabIndex = 5;
+            btnResetBase.Text = "Скинути базу";
+            btnResetBase.UseVisualStyleBackColor = true;
+            btnResetBase.Click += btnResetBase_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(btnResetBase);
+            Controls.Add(btnHistory);
             Controls.Add(btnDeleteProduct);
             Controls.Add(btnCreateWaybill);
             Controls.Add(btnAddProduct);
@@ -95,5 +119,7 @@
         private Button btnAddProduct;
         private Button btnCreateWaybill;
         private Button btnDeleteProduct;
+        private Button btnHistory;
+        private Button btnResetBase;
     }
 }

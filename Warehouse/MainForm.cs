@@ -110,5 +110,27 @@ namespace Warehouse
         {
             myWarehouse.SaveData(); // Зберігаємо дані перед тим, як вікно зникне
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            HistoryForm historyForm = new HistoryForm(myWarehouse.Waybills);
+            historyForm.ShowDialog();
+        }
+
+        private void btnResetBase_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show(
+        "Ви впевнені, що хочете ПОВНІСТЮ очистити склад і видалити всі накладні? Цю дію неможливо скасувати!",
+        "Критична дія",
+        MessageBoxButtons.YesNo,
+        MessageBoxIcon.Error);
+
+            if (result == DialogResult.Yes)
+            {
+                myWarehouse.Inventory.Clear();
+                myWarehouse.Waybills.Clear();
+                UpdateGrid();
+            }
+        }
     }
 }

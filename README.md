@@ -31,7 +31,7 @@
 
 1.  **Клонуйте репозиторій:**
     ```bash
-    git clone [https://github.com/arsensarben/Warehouse.git](https://github.com/arsensarben/Warehouse.git)
+    git clone https://github.com/arsensarben/Warehouse.git
     ```
 2.  **Відкрийте проєкт:**
     Знайдіть та запустіть файл `Warehouse.sln` у **Visual Studio 2022**.

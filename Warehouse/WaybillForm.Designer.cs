@@ -131,7 +131,7 @@
             Controls.Add(numQuantity);
             Controls.Add(cmbProducts);
             Name = "WaybillForm";
-            Text = "WaybillForm";
+            Text = "Накладні";
             ((System.ComponentModel.ISupportInitialize)numQuantity).EndInit();
             ResumeLayout(false);
             PerformLayout();

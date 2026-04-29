@@ -42,6 +42,7 @@
             // dataGridView1
             // 
             dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Location = new Point(12, 36);
             dataGridView1.Name = "dataGridView1";
@@ -138,8 +139,9 @@
             Controls.Add(btnAddProduct);
             Controls.Add(dataGridView1);
             Name = "MainForm";
-            Text = "Form1";
+            Text = "Керування складом";
             FormClosing += MainForm_FormClosing;
+            Load += MainForm_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();

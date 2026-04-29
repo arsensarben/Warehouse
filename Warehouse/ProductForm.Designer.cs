@@ -123,7 +123,7 @@
             Controls.Add(label2);
             Controls.Add(label1);
             Name = "ProductForm";
-            Text = "ProductForm";
+            Text = "Дані товару ";
             ((System.ComponentModel.ISupportInitialize)numPrice).EndInit();
             ResumeLayout(false);
             PerformLayout();

@@ -34,6 +34,7 @@
             // 
             // dataGridViewHistory
             // 
+            dataGridViewHistory.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dataGridViewHistory.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewHistory.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewHistory.Location = new Point(12, 12);
@@ -48,7 +49,7 @@
             ClientSize = new Size(800, 450);
             Controls.Add(dataGridViewHistory);
             Name = "HistoryForm";
-            Text = "HistoryForm";
+            Text = "Історія операцій";
             ((System.ComponentModel.ISupportInitialize)dataGridViewHistory).EndInit();
             ResumeLayout(false);
         }

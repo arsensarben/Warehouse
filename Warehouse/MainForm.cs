@@ -158,5 +158,10 @@ namespace Warehouse
                 MessageBox.Show("Оберіть товар для редагування!", "Увага", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

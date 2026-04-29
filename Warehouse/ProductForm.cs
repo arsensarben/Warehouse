@@ -8,11 +8,25 @@ namespace Warehouse
     public partial class ProductForm : Form
     {
         public Product CreatedProduct { get; private set; }
+        private Product _productToEdit;
 
         public ProductForm()
         {
             InitializeComponent();
+            this.Text = "Додати товар";
         }
+
+        public ProductForm(Product product)
+        {
+            InitializeComponent();
+            this.Text = "Редагувати товар";
+            _productToEdit = product;
+
+            textBoxName.Text = product.Name;
+            textBoxUnit.Text = product.Unit;
+            numPrice.Value = product.Price;
+        }
+
         private void btnOK_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(textBoxName.Text))
@@ -27,14 +41,23 @@ namespace Warehouse
                 return;
             }
 
-            CreatedProduct = new Product
+            if (_productToEdit != null)
             {
-                Name = textBoxName.Text.Trim(),
-                Unit = textBoxUnit.Text.Trim(),
-                Price = numPrice.Value,
-                Quantity = 0, 
-                LastDeliveryDate = DateTime.MinValue
-            };
+                _productToEdit.Name = textBoxName.Text.Trim();
+                _productToEdit.Unit = textBoxUnit.Text.Trim();
+                _productToEdit.Price = numPrice.Value;
+            }
+            else
+            {
+                CreatedProduct = new Product
+                {
+                    Name = textBoxName.Text.Trim(),
+                    Unit = textBoxUnit.Text.Trim(),
+                    Price = numPrice.Value,
+                    Quantity = 0,
+                    LastDeliveryDate = DateTime.MinValue
+                };
+            }
             this.DialogResult = DialogResult.OK;
             this.Close();
         }

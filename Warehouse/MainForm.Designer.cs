@@ -35,6 +35,7 @@
             btnHistory = new Button();
             btnResetBase = new Button();
             txtSearch = new TextBox();
+            btnEditProduct = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -61,7 +62,7 @@
             // btnCreateWaybill
             // 
             btnCreateWaybill.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnCreateWaybill.Location = new Point(269, 375);
+            btnCreateWaybill.Location = new Point(381, 375);
             btnCreateWaybill.Name = "btnCreateWaybill";
             btnCreateWaybill.Size = new Size(137, 29);
             btnCreateWaybill.TabIndex = 2;
@@ -72,7 +73,7 @@
             // btnDeleteProduct
             // 
             btnDeleteProduct.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnDeleteProduct.Location = new Point(128, 375);
+            btnDeleteProduct.Location = new Point(254, 375);
             btnDeleteProduct.Name = "btnDeleteProduct";
             btnDeleteProduct.Size = new Size(111, 29);
             btnDeleteProduct.TabIndex = 3;
@@ -83,7 +84,7 @@
             // btnHistory
             // 
             btnHistory.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnHistory.Location = new Point(431, 375);
+            btnHistory.Location = new Point(530, 375);
             btnHistory.Name = "btnHistory";
             btnHistory.Size = new Size(121, 29);
             btnHistory.TabIndex = 4;
@@ -94,9 +95,9 @@
             // btnResetBase
             // 
             btnResetBase.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnResetBase.Location = new Point(670, 415);
+            btnResetBase.Location = new Point(665, 423);
             btnResetBase.Name = "btnResetBase";
-            btnResetBase.Size = new Size(118, 23);
+            btnResetBase.Size = new Size(123, 24);
             btnResetBase.TabIndex = 5;
             btnResetBase.Text = "Скинути базу";
             btnResetBase.UseVisualStyleBackColor = true;
@@ -112,11 +113,23 @@
             txtSearch.TabIndex = 6;
             txtSearch.TextChanged += txtSearch_TextChanged;
             // 
+            // btnEditProduct
+            // 
+            btnEditProduct.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnEditProduct.Location = new Point(116, 375);
+            btnEditProduct.Name = "btnEditProduct";
+            btnEditProduct.Size = new Size(122, 29);
+            btnEditProduct.TabIndex = 7;
+            btnEditProduct.Text = "Редагувати товар";
+            btnEditProduct.UseVisualStyleBackColor = true;
+            btnEditProduct.Click += btnEditProduct_Click_1;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(btnEditProduct);
             Controls.Add(txtSearch);
             Controls.Add(btnResetBase);
             Controls.Add(btnHistory);
@@ -141,5 +154,6 @@
         private Button btnHistory;
         private Button btnResetBase;
         private TextBox txtSearch;
+        private Button btnEditProduct;
     }
 }

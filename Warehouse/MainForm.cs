@@ -141,5 +141,22 @@ namespace Warehouse
             dataGridView1.DataSource = null;
             dataGridView1.DataSource = filteredList;
         }
+
+        private void btnEditProduct_Click_1(object sender, EventArgs e)
+        {
+            if (dataGridView1.CurrentRow != null)
+            {
+                Product selectedProduct = (Product)dataGridView1.CurrentRow.DataBoundItem;
+                ProductForm form = new ProductForm(selectedProduct);
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    UpdateGrid();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Оберіть товар для редагування!", "Увага", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
     }
 }

@@ -26,7 +26,7 @@ namespace Warehouse
 
             dataGridView1.DataSource = safeData;
 
-            UpdateStatistics(); // ОСЬ ЦЕЙ РЯДОК змусить програму перерахувати цифри і змінити текст!
+            UpdateStatistics(); // ОСЬ ЦЕЙ РЯДОК змусить програму перерахувати цифри і змінити текст
         }
 
         // Кнопка додавання нового товару в каталог
@@ -153,20 +153,55 @@ namespace Warehouse
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
             string query = txtSearch.Text.ToLower();
+
+            // Якщо ми стерли весь текст у пошуку - просто повертаємо стандартну таблицю
+            if (string.IsNullOrWhiteSpace(query))
+            {
+                UpdateGrid();
+                return;
+            }
+
+            // Якщо текст є - фільтруємо
             var filteredList = myWarehouse.Inventory.Where(p => p.Name.ToLower().Contains(query)).ToList();
 
             dataGridView1.DataSource = null;
             dataGridView1.DataSource = filteredList;
+
+            // Оновлюємо статистику (хоча вона все одно рахуватиме весь склад, 
+            // але це захистить від візуальних багів)
+            UpdateStatistics();
         }
 
         private void btnEditProduct_Click_1(object sender, EventArgs e)
         {
             if (dataGridView1.CurrentRow != null)
             {
+                // Дістаємо товар
                 Product selectedProduct = (Product)dataGridView1.CurrentRow.DataBoundItem;
+
+                // ЗАПАМ'ЯТОВУЄМО стару назву до того, як юзер щось зламає
+                string oldName = selectedProduct.Name;
+
                 ProductForm form = new ProductForm(selectedProduct);
                 if (form.ShowDialog() == DialogResult.OK)
                 {
+                    // ПЕРЕВІРКА НА ДУБЛІКАТ (шукаємо, чи є ІНШИЙ товар з такою ж новою назвою)
+                    bool isDuplicate = myWarehouse.Inventory.Any(p =>
+                        p != selectedProduct &&
+                        p.Name.ToLower() == selectedProduct.Name.ToLower());
+
+                    if (isDuplicate)
+                    {
+                        MessageBox.Show("Товар з такою назвою вже існує на складі!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                        // Відкочуємо назву назад, бо форма її вже зіпсувала
+                        selectedProduct.Name = oldName;
+
+                        UpdateGrid(); // Оновлюємо екран, щоб повернути стару назву візуально
+                        return; // Перериваємо метод
+                    }
+
+                    // Якщо дублікатів немає - спокійно оновлюємо таблицю
                     UpdateGrid();
                 }
             }
@@ -178,9 +213,10 @@ namespace Warehouse
 
         private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (dataGridView1.Rows[e.RowIndex].DataBoundItem is Product p && p.Quantity == 0)
+            if (dataGridView1.Rows[e.RowIndex].DataBoundItem is Product p)
             {
-                dataGridView1.Rows[e.RowIndex].DefaultCellStyle.BackColor = System.Drawing.Color.LightCoral;
+                dataGridView1.Rows[e.RowIndex].DefaultCellStyle.BackColor =
+                    p.Quantity == 0 ? Color.LightCoral : Color.Empty;
             }
         }
 

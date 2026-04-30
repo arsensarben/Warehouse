@@ -17,7 +17,9 @@ namespace Warehouse.Services
             Waybills.Add(waybill);
             foreach (var item in waybill.Items)
             {
-                var product = Inventory.FirstOrDefault(p => p.Name == item.Product.Name);
+                // ШУКАЄМО ПО СНАПШОТУ
+                var product = Inventory.FirstOrDefault(p => p.Name == item.ProductNameSnapshot);
+
                 if (product != null)
                 {
                     product.Quantity += item.Quantity;
@@ -25,6 +27,7 @@ namespace Warehouse.Services
                 }
                 else
                 {
+                    // Якщо це зовсім новий товар (з UI він сюди прийде живим)
                     item.Product.Quantity = item.Quantity;
                     item.Product.LastDeliveryDate = waybill.Date;
                     Inventory.Add(item.Product);
@@ -37,7 +40,8 @@ namespace Warehouse.Services
             Waybills.Add(waybill);
             foreach (var item in waybill.Items)
             {
-                var product = Inventory.FirstOrDefault(p => p.Name == item.Product.Name);
+                // ШУКАЄМО ПО СНАПШОТУ!
+                var product = Inventory.FirstOrDefault(p => p.Name == item.ProductNameSnapshot);
 
                 if (product != null && product.Quantity >= item.Quantity)
                 {
@@ -45,7 +49,8 @@ namespace Warehouse.Services
                 }
                 else
                 {
-                    throw new Exception($"Недостатньо товару {item.Product.Name} на складі!");
+                    // У помилці теж використовуємо снапшот, бо item.Product може бути null
+                    throw new Exception($"Недостатньо товару '{item.ProductNameSnapshot}' на складі!");
                 }
             }
         }

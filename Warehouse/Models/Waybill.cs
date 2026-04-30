@@ -8,6 +8,8 @@ namespace Warehouse.Models
     public class WaybillItem
     {
         private Product _product;
+
+        [JsonIgnore]
         public Product Product
         {
             get => _product;
@@ -47,7 +49,7 @@ namespace Warehouse.Models
             {
                 if (Items == null || Items.Count == 0) return "Немає товарів";
 
-                var list = new System.Collections.Generic.List<string>();
+                var list = new List<string>();
                 foreach (var item in Items)
                 {
                     string name = !string.IsNullOrEmpty(item.ProductNameSnapshot) ? item.ProductNameSnapshot : item.Product?.Name;

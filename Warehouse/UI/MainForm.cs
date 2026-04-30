@@ -91,15 +91,15 @@ namespace Warehouse
                 // Дістаємо товар з виділеного рядка (там, де стоїть чорна стрілочка)
                 Product selectedProduct = (Product)dataGridView1.CurrentRow.DataBoundItem;
 
-                // Виводимо вікно з підтвердженням
+                // Виводимо вікно з підтвердженням (змінили кнопки на ОК/Отмена)
                 DialogResult result = MessageBox.Show(
                     $"Ви дійсно хочете видалити товар '{selectedProduct.Name}' з каталогу?",
                     "Підтвердження видалення",
-                    MessageBoxButtons.YesNo,
+                    MessageBoxButtons.OKCancel, // <--- Змінили тут
                     MessageBoxIcon.Question);
 
-                // Якщо користувач натиснув "Так"
-                if (result == DialogResult.Yes)
+                // Якщо користувач натиснув "ОК" або клавішу Enter
+                if (result == DialogResult.OK) // <--- Змінили тут
                 {
                     myWarehouse.Inventory.Remove(selectedProduct); // Видаляємо товар зі складу
                     UpdateGrid(); // Оновлюємо таблицю, щоб рядок зник з екрана
@@ -111,7 +111,6 @@ namespace Warehouse
                 MessageBox.Show("Будь ласка, оберіть товар для видалення!", "Увага", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
-
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             myWarehouse.SaveData(); // Зберігаємо дані перед тим, як вікно зникне
@@ -173,6 +172,12 @@ namespace Warehouse
             }
         }
 
+        private void saveToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            myWarehouse.SaveData();
+            MessageBox.Show("Збережено!");
+        }
+
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // 1. Вказуємо шлях до нашої майбутньої папки (вона буде поруч з .exe)
@@ -196,6 +201,13 @@ namespace Warehouse
             }
         }
 
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            myWarehouse.LoadData();
+            dataGridView1.DataSource = null;
+            dataGridView1.DataSource = myWarehouse.Inventory;
+            MessageBox.Show("Завантажено!");
+        }
 
         private void openAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -218,20 +230,6 @@ namespace Warehouse
             }
         }
 
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            myWarehouse.SaveData();
-            MessageBox.Show("Збережено!");
-        }
-
-        private void openToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            myWarehouse.LoadData();
-            dataGridView1.DataSource = null;
-            dataGridView1.DataSource = myWarehouse.Inventory;
-            MessageBox.Show("Завантажено!");
-        }
-
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -248,6 +246,68 @@ namespace Warehouse
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information
             );
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            // Залізобетонне перехоплення Delete для таблиці
+            if (keyData == Keys.Delete && dataGridView1.SelectedRows.Count > 0)
+            {
+                btnDeleteProduct_Click(this, EventArgs.Empty);
+                return true; // Кажемо системі "ми вже обробили цю клавішу, забудь про неї"
+            }
+
+            // Твою довідку на F1 теж краще перенести сюди, щоб працювала завжди
+            if (keyData == Keys.F1)
+            {
+                MessageBox.Show(
+                    "Головне вікно керування складом.\n\n" +
+                    "• Пошук — введіть текст для швидкого фільтрування.\n" +
+                    "• Таблиця — показує стан складу (червоним виділено товари, яких немає в наявності).\n" +
+                    "• Оформити накладну — проведення приходу або витрати товару.\n" +
+                    "• Історія операцій — журнал усіх складських рухів.\n\n" +
+                    "Гарячі клавіші:\n" +
+                    "F1 — ця довідка.\n" +
+                    "Delete — швидке видалення виділеного товару з таблиці.",
+                    "Довідка: Головне вікно",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+                return true;
+            }
+            // --- КЕРУВАННЯ ТАБЛИЦЕЮ У ВСІ 4 СТОРОНИ ---
+
+            bool isSearchFocused = (this.ActiveControl != null && this.ActiveControl.Name == "txtSearch");
+
+            // Якщо натиснута будь-яка з чотирьох стрілок
+            if (keyData == Keys.Up || keyData == Keys.Down || keyData == Keys.Left || keyData == Keys.Right)
+            {
+                // Якщо ми в полі пошуку і тиснемо Вліво/Вправо - віддаємо керування системі (щоб бігав курсор по тексту)
+                if (isSearchFocused && (keyData == Keys.Left || keyData == Keys.Right))
+                {
+                    return base.ProcessCmdKey(ref msg, keyData);
+                }
+
+                // Якщо в таблиці є дані і є хоча б одна активна клітинка - рухаємо її
+                if (dataGridView1.Rows.Count > 0 && dataGridView1.CurrentCell != null)
+                {
+                    int currRow = dataGridView1.CurrentCell.RowIndex;
+                    int currCol = dataGridView1.CurrentCell.ColumnIndex;
+
+                    // Вираховуємо нові координати, не даючи вийти за межі таблиці
+                    if (keyData == Keys.Up && currRow > 0) currRow--;
+                    if (keyData == Keys.Down && currRow < dataGridView1.Rows.Count - 1) currRow++;
+                    if (keyData == Keys.Left && currCol > 0) currCol--;
+                    if (keyData == Keys.Right && currCol < dataGridView1.ColumnCount - 1) currCol++;
+
+                    // Переміщуємо фокус на нову клітинку
+                    dataGridView1.CurrentCell = dataGridView1.Rows[currRow].Cells[currCol];
+                    return true; // Блокуємо стандартну поведінку стрілок
+                }
+            }
+
+            // Усі інші клавіші віддаємо системі (Tab, Enter, літери тощо)
+            return base.ProcessCmdKey(ref msg, keyData);
         }
     }
 }

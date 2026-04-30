@@ -68,5 +68,25 @@ namespace Warehouse
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
+
+        private void ProductForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            // Якщо натиснута клавіша F1
+            if (e.KeyCode == Keys.F1)
+            {
+                MessageBox.Show(
+                    "Вікно заповнення даних про товар.\n\n" +
+                    "• Назва — введіть повне найменування товару.\n" +
+                    "• Одиниця вимірювання — наприклад: шт., кг, м, л.\n" +
+                    "• Ціна — вкажіть вартість за одиницю (допускаються лише числа та кома для копійок).\n\n" +
+                    "Гарячі клавіші:\n" +
+                    "Enter — підтвердити та зберегти (ОК).\n" +
+                    "Esc — скасувати та закрити вікно (Відміна).",
+                    "Довідка: Дані товару",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+            }
+        }
     }
 }

@@ -46,7 +46,7 @@
             cmbProducts.Location = new Point(153, 88);
             cmbProducts.Name = "cmbProducts";
             cmbProducts.Size = new Size(172, 23);
-            cmbProducts.TabIndex = 0;
+            cmbProducts.TabIndex = 2;
             // 
             // numQuantity
             // 
@@ -54,7 +54,7 @@
             numQuantity.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
             numQuantity.Name = "numQuantity";
             numQuantity.Size = new Size(125, 23);
-            numQuantity.TabIndex = 1;
+            numQuantity.TabIndex = 3;
             numQuantity.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
             // rbIncoming
@@ -64,7 +64,7 @@
             rbIncoming.Location = new Point(60, 23);
             rbIncoming.Name = "rbIncoming";
             rbIncoming.Size = new Size(145, 19);
-            rbIncoming.TabIndex = 2;
+            rbIncoming.TabIndex = 0;
             rbIncoming.TabStop = true;
             rbIncoming.Text = "Прибуткова накладна";
             rbIncoming.UseVisualStyleBackColor = true;
@@ -75,7 +75,7 @@
             rbOutgoing.Location = new Point(60, 53);
             rbOutgoing.Name = "rbOutgoing";
             rbOutgoing.Size = new Size(135, 19);
-            rbOutgoing.TabIndex = 3;
+            rbOutgoing.TabIndex = 1;
             rbOutgoing.Text = "Видаткова накладна";
             rbOutgoing.UseVisualStyleBackColor = true;
             // 
@@ -119,8 +119,10 @@
             // 
             // WaybillForm
             // 
+            AcceptButton = btnOK;
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            CancelButton = btnCancel;
             ClientSize = new Size(442, 241);
             Controls.Add(label2);
             Controls.Add(label1);
@@ -130,8 +132,10 @@
             Controls.Add(rbIncoming);
             Controls.Add(numQuantity);
             Controls.Add(cmbProducts);
+            KeyPreview = true;
             Name = "WaybillForm";
             Text = "Накладні";
+            KeyDown += WaybillForm_KeyDown;
             ((System.ComponentModel.ISupportInitialize)numQuantity).EndInit();
             ResumeLayout(false);
             PerformLayout();

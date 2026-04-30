@@ -71,14 +71,14 @@
             textBoxName.Location = new Point(220, 33);
             textBoxName.Name = "textBoxName";
             textBoxName.Size = new Size(120, 23);
-            textBoxName.TabIndex = 3;
+            textBoxName.TabIndex = 0;
             // 
             // textBoxUnit
             // 
             textBoxUnit.Location = new Point(220, 65);
             textBoxUnit.Name = "textBoxUnit";
             textBoxUnit.Size = new Size(120, 23);
-            textBoxUnit.TabIndex = 4;
+            textBoxUnit.TabIndex = 1;
             // 
             // numPrice
             // 
@@ -87,14 +87,14 @@
             numPrice.Maximum = new decimal(new int[] { 1000000, 0, 0, 0 });
             numPrice.Name = "numPrice";
             numPrice.Size = new Size(120, 23);
-            numPrice.TabIndex = 5;
+            numPrice.TabIndex = 2;
             // 
             // btnOK
             // 
             btnOK.Location = new Point(71, 150);
             btnOK.Name = "btnOK";
             btnOK.Size = new Size(75, 23);
-            btnOK.TabIndex = 6;
+            btnOK.TabIndex = 3;
             btnOK.Text = "OK";
             btnOK.UseVisualStyleBackColor = true;
             btnOK.Click += btnOK_Click;
@@ -105,14 +105,16 @@
             btnCancel.Location = new Point(220, 150);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(75, 23);
-            btnCancel.TabIndex = 7;
+            btnCancel.TabIndex = 4;
             btnCancel.Text = "Відміна";
             btnCancel.UseVisualStyleBackColor = true;
             // 
             // ProductForm
             // 
+            AcceptButton = btnOK;
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            CancelButton = btnCancel;
             ClientSize = new Size(440, 240);
             Controls.Add(btnCancel);
             Controls.Add(btnOK);
@@ -122,8 +124,10 @@
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
+            KeyPreview = true;
             Name = "ProductForm";
             Text = "Дані товару ";
+            KeyDown += ProductForm_KeyDown;
             ((System.ComponentModel.ISupportInitialize)numPrice).EndInit();
             ResumeLayout(false);
             PerformLayout();

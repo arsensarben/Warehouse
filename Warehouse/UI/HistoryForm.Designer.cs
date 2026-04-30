@@ -48,8 +48,10 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
             Controls.Add(dataGridViewHistory);
+            KeyPreview = true;
             Name = "HistoryForm";
             Text = "Історія операцій";
+            KeyDown += HistoryForm_KeyDown;
             ((System.ComponentModel.ISupportInitialize)dataGridViewHistory).EndInit();
             ResumeLayout(false);
         }

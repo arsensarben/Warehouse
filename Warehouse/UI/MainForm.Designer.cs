@@ -46,6 +46,7 @@
             toolStripMenuItem2 = new ToolStripSeparator();
             exitToolStripMenuItem = new ToolStripMenuItem();
             helpToolStripMenuItem = new ToolStripMenuItem();
+            lblStatistics = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             menuStrip1.SuspendLayout();
             SuspendLayout();
@@ -138,7 +139,7 @@
             dataGridView1.Name = "dataGridView1";
             dataGridView1.ReadOnly = true;
             dataGridView1.ShowCellToolTips = false;
-            dataGridView1.Size = new Size(776, 304);
+            dataGridView1.Size = new Size(776, 291);
             dataGridView1.TabIndex = 1;
             dataGridView1.TabStop = false;
             dataGridView1.CellFormatting += dataGridView1_CellFormatting;
@@ -211,11 +212,22 @@
             helpToolStripMenuItem.Text = "Help";
             helpToolStripMenuItem.Click += helpToolStripMenuItem_Click;
             // 
+            // lblStatistics
+            // 
+            lblStatistics.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            lblStatistics.AutoSize = true;
+            lblStatistics.Location = new Point(312, 350);
+            lblStatistics.Name = "lblStatistics";
+            lblStatistics.Size = new Size(53, 15);
+            lblStatistics.TabIndex = 8;
+            lblStatistics.Text = "Statistics";
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(lblStatistics);
             Controls.Add(btnEditProduct);
             Controls.Add(txtSearch);
             Controls.Add(btnResetBase);
@@ -256,5 +268,6 @@
         private ToolStripSeparator toolStripMenuItem2;
         private ToolStripMenuItem exitToolStripMenuItem;
         private ToolStripMenuItem helpToolStripMenuItem;
+        private Label lblStatistics;
     }
 }

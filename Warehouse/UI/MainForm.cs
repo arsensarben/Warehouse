@@ -25,6 +25,8 @@ namespace Warehouse
             var safeData = myWarehouse.Inventory.ToArray();
 
             dataGridView1.DataSource = safeData;
+
+            UpdateStatistics(); // ОСЬ ЦЕЙ РЯДОК змусить програму перерахувати цифри і змінити текст!
         }
 
         // Кнопка додавання нового товару в каталог
@@ -308,6 +310,25 @@ namespace Warehouse
 
             // Усі інші клавіші віддаємо системі (Tab, Enter, літери тощо)
             return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void UpdateStatistics()
+        {
+            // Рахуємо унікальні позиції (рядки)
+            int totalItems = myWarehouse.Inventory.Count;
+
+            // Рахуємо загальну кількість усіх фізичних одиниць товару та їхню вартість
+            decimal totalValue = 0;
+            int totalQuantity = 0;
+
+            foreach (var item in myWarehouse.Inventory)
+            {
+                totalQuantity += item.Quantity;
+                totalValue += (decimal)(item.Quantity * item.Price); // Рахуємо як Ціна * Кількість
+            }
+
+            // Виводимо стату в Label
+            lblStatistics.Text = $"Всього найменувань: {totalItems} | Загальна кількість одиниць: {totalQuantity} | Вартість складу: {totalValue} грн";
         }
     }
 }

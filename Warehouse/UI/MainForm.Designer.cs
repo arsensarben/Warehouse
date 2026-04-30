@@ -143,6 +143,7 @@
             dataGridView1.TabIndex = 1;
             dataGridView1.TabStop = false;
             dataGridView1.CellFormatting += dataGridView1_CellFormatting;
+            dataGridView1.ColumnHeaderMouseClick += dataGridView1_ColumnHeaderMouseClick;
             // 
             // menuStrip1
             // 

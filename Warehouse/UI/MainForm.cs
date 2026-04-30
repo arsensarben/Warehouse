@@ -126,17 +126,27 @@ namespace Warehouse
 
         private void btnResetBase_Click(object sender, EventArgs e)
         {
+            // Виводимо вікно-попередження із захистом від випадкового натискання Enter
             DialogResult result = MessageBox.Show(
-        "Ви впевнені, що хочете ПОВНІСТЮ очистити склад і видалити всі накладні? Цю дію неможливо скасувати!",
-        "Критична дія",
-        MessageBoxButtons.YesNo,
-        MessageBoxIcon.Error);
+                "Ви впевнені, що хочете ПОВНІСТЮ очистити склад і видалити всі накладні? Цю дію неможливо скасувати!",
+                "Критична дія",
+                MessageBoxButtons.OKCancel,
+                MessageBoxIcon.Error,
+                MessageBoxDefaultButton.Button2 // Фокус за замовчуванням стоїть на кнопці "Отмена"
+            );
 
-            if (result == DialogResult.Yes)
+            // Якщо користувач свідомо натиснув ОК
+            if (result == DialogResult.OK)
             {
+                // Очищаємо списки в оперативній пам'яті
                 myWarehouse.Inventory.Clear();
+
                 myWarehouse.Waybills.Clear();
-                UpdateGrid();
+
+                // Оновлюємо інтерфейс
+                UpdateGrid(); // Таблиця стане порожньою
+                UpdateStatistics(); // Лейбл внизу покаже нулі
+                myWarehouse.SaveData();
             }
         }
 
@@ -206,8 +216,7 @@ namespace Warehouse
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             myWarehouse.LoadData();
-            dataGridView1.DataSource = null;
-            dataGridView1.DataSource = myWarehouse.Inventory;
+            UpdateGrid(); 
             MessageBox.Show("Завантажено!");
         }
 
@@ -220,14 +229,13 @@ namespace Warehouse
             }
 
             OpenFileDialog ofd = new OpenFileDialog();
-            ofd.InitialDirectory = backupFolder; // Шукаємо файли одразу тут
+            ofd.InitialDirectory = backupFolder;
             ofd.Filter = "JSON files (*.json)|*.json";
 
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 myWarehouse.LoadData(ofd.FileName);
-                dataGridView1.DataSource = null;
-                dataGridView1.DataSource = myWarehouse.Inventory;
+                UpdateGrid(); 
                 MessageBox.Show("Дані успішно завантажено!");
             }
         }
@@ -329,6 +337,51 @@ namespace Warehouse
 
             // Виводимо стату в Label
             lblStatistics.Text = $"Всього найменувань: {totalItems} | Загальна кількість одиниць: {totalQuantity} | Вартість складу: {totalValue} грн";
+        }
+
+        // Ця змінна запам'ятовує, в який бік ми сортували минулого разу (зростання чи спадання)
+        private bool sortAscending = true;
+
+        private void dataGridView1_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            // Дістаємо ім'я властивості, до якої прив'язана колонка, по якій клікнули
+            string columnName = dataGridView1.Columns[e.ColumnIndex].DataPropertyName;
+
+            // Сортуємо наш основний список залежно від колонки за допомогою магії LINQ
+            switch (columnName)
+            {
+                case "Name":
+                    myWarehouse.Inventory = sortAscending
+                        ? myWarehouse.Inventory.OrderBy(x => x.Name).ToList()
+                        : myWarehouse.Inventory.OrderByDescending(x => x.Name).ToList();
+                    break;
+                case "Price":
+                    myWarehouse.Inventory = sortAscending
+                        ? myWarehouse.Inventory.OrderBy(x => x.Price).ToList()
+                        : myWarehouse.Inventory.OrderByDescending(x => x.Price).ToList();
+                    break;
+                case "Unit":
+                    myWarehouse.Inventory = sortAscending
+                        ? myWarehouse.Inventory.OrderBy(x => x.Unit).ToList()
+                        : myWarehouse.Inventory.OrderByDescending(x => x.Unit).ToList();
+                    break;
+                case "Quantity":
+                    myWarehouse.Inventory = sortAscending
+                        ? myWarehouse.Inventory.OrderBy(x => x.Quantity).ToList()
+                        : myWarehouse.Inventory.OrderByDescending(x => x.Quantity).ToList();
+                    break;
+                case "LastDeliveryDate":
+                    myWarehouse.Inventory = sortAscending
+                        ? myWarehouse.Inventory.OrderBy(x => x.LastDeliveryDate).ToList()
+                        : myWarehouse.Inventory.OrderByDescending(x => x.LastDeliveryDate).ToList();
+                    break;
+            }
+
+            // Інвертуємо напрямок для наступного кліку
+            sortAscending = !sortAscending;
+
+            // Оновлюємо таблицю, щоб показати відсортований список
+            UpdateGrid();
         }
     }
 }

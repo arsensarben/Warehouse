@@ -23,7 +23,7 @@ namespace Warehouse
             // Кажемо: таблиця бере дані від посередника
             dataGridView1.DataSource = inventoryBindingSource;
 
-            // 3. Викликаємо твій звичний метод для фінального оновлення та прорахунку статистики
+            // 3. Викликаємо звичний метод для фінального оновлення та прорахунку статистики
             UpdateGrid();
         }
 
@@ -35,13 +35,13 @@ namespace Warehouse
             {
                 inventoryBindingSource.DataSource = myWarehouse.Inventory;
             }
-            // Сигнал посереднику: "Дані змінилися, онови таблицю акуратно!"
+            // Сигнал посереднику: "Дані змінилися, онови таблицю!"
             inventoryBindingSource.ResetBindings(false);
 
             UpdateStatistics(); // ЦЕЙ РЯДОК змусить програму перерахувати цифри і змінити текст
         }
 
-        // Кнопка додавання нового товару в каталог
+        // КНОПКА додавання нового товару в каталог
         private void btnAddProduct_Click(object sender, EventArgs e)
         {
             ProductForm form = new ProductForm();
@@ -58,7 +58,7 @@ namespace Warehouse
             }
         }
 
-        // НОВА КНОПКА: Оформлення накладної
+        //  КНОПКА Оформлення накладної
         private void btnCreateWaybill_Click(object sender, EventArgs e)
         {
             // Перевірка: чи є взагалі товари в каталозі
@@ -96,10 +96,10 @@ namespace Warehouse
                 }
             }
         }
-
+        // КНОПКА видалення товару
         private void btnDeleteProduct_Click(object sender, EventArgs e)
         {
-            // Рахуємо, скільки рядків реально виділено
+            // Рахуємо, скільки рядків виділено
             int selectedCount = dataGridView1.SelectedRows.Count;
 
             if (selectedCount == 0)
@@ -166,7 +166,7 @@ namespace Warehouse
                 MessageBoxDefaultButton.Button2 // Фокус за замовчуванням стоїть на кнопці "Отмена"
             );
 
-            // Якщо користувач свідомо натиснув ОК
+            // Якщо користувач натиснув ОК
             if (result == DialogResult.OK)
             {
                 // Очищаємо списки в оперативній пам'яті
@@ -190,7 +190,7 @@ namespace Warehouse
             }
             else
             {
-                // Якщо ввели текст — даємо посереднику відфільтрований шматок
+                // Якщо ввели текст — даємо відфільтрований шматок
                 var filteredList = myWarehouse.Inventory.Where(p => p.Name.ToLower().Contains(query)).ToList();
                 inventoryBindingSource.DataSource = filteredList;
             }
@@ -228,7 +228,7 @@ namespace Warehouse
                         return; // Перериваємо метод
                     }
 
-                    // Якщо дублікатів немає - спокійно оновлюємо таблицю
+                    // Якщо дублікатів немає - оновлюємо таблицю
                     UpdateGrid();
                 }
             }
@@ -255,7 +255,7 @@ namespace Warehouse
 
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // 1. Вказуємо шлях до нашої майбутньої папки (вона буде поруч з .exe)
+            // 1. Вказуємо шлях до нашої папки ("Backups")
             string backupFolder = Path.Combine(Application.StartupPath, "Backups");
 
             // 2. Якщо такої папки ще немає — створюємо її
@@ -323,14 +323,14 @@ namespace Warehouse
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            // Залізобетонне перехоплення Delete для таблиці
+            // Перехоплення Delete для таблиці
             if (keyData == Keys.Delete && dataGridView1.SelectedRows.Count > 0)
             {
                 btnDeleteProduct_Click(this, EventArgs.Empty);
                 return true; // Кажемо системі "ми вже обробили цю клавішу, забудь про неї"
             }
 
-            // Твою довідку на F1 теж краще перенести сюди, щоб працювала завжди
+            // Довідка на F1 
             if (keyData == Keys.F1)
             {
                 MessageBox.Show(
@@ -348,8 +348,8 @@ namespace Warehouse
                 );
                 return true;
             }
-            // --- КЕРУВАННЯ ТАБЛИЦЕЮ У ВСІ 4 СТОРОНИ ---
 
+            // --- КЕРУВАННЯ ТАБЛИЦЕЮ У ВСІ 4 СТОРОНИ ---
             bool isSearchFocused = (this.ActiveControl != null && this.ActiveControl.Name == "txtSearch");
 
             // Якщо натиснута будь-яка з чотирьох стрілок
@@ -402,6 +402,7 @@ namespace Warehouse
             lblStatistics.Text = $"Всього найменувань: {totalItems} | Загальна кількість одиниць: {totalQuantity} | Вартість складу: {totalValue} грн";
         }
 
+
         // Ця змінна запам'ятовує, в який бік ми сортували минулого разу (зростання чи спадання)
         private bool sortAscending = true;
 
@@ -410,7 +411,7 @@ namespace Warehouse
             // Дістаємо ім'я властивості, до якої прив'язана колонка, по якій клікнули
             string columnName = dataGridView1.Columns[e.ColumnIndex].DataPropertyName;
 
-            // Сортуємо наш основний список залежно від колонки за допомогою магії LINQ
+            // Сортуємо наш основний список залежно від колонки за допомогою LINQ
             switch (columnName)
             {
                 case "Name":

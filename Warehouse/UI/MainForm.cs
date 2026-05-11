@@ -9,24 +9,36 @@ namespace Warehouse
     {
         // Створюємо наш склад
         private Warehouse.Services.Warehouse myWarehouse = new Warehouse.Services.Warehouse();
+        // Створюємо посередника для таблиці
+        private BindingSource inventoryBindingSource = new BindingSource();
 
         public MainForm()
         {
             InitializeComponent();
-            myWarehouse.LoadData(); // Зчитуємо дані з файлу
-            UpdateGrid();           // Показуємо їх у таблиці
+            // 1. Завантажуємо дані
+            myWarehouse.LoadData();
+            // 2. ОДИН РАЗ налаштовуємо "шланг" (BindingSource)
+            // Кажемо: посередник бере дані з нашого складу
+            inventoryBindingSource.DataSource = myWarehouse.Inventory;
+            // Кажемо: таблиця бере дані від посередника
+            dataGridView1.DataSource = inventoryBindingSource;
+
+            // 3. Викликаємо твій звичний метод для фінального оновлення та прорахунку статистики
+            UpdateGrid();
         }
 
         // Метод оновлення таблиці
         private void UpdateGrid()
         {
-            // Робимо свіжу копію списку (ToArray), щоб DataGridView не сходив з розуму 
-            // при спробі зчитати дані, які в цей момент змінюються на складі
-            var safeData = myWarehouse.Inventory.ToArray();
+            // Переконуємося, що посередник дивиться на основний склад (важливо для скидання пошуку)
+            if (inventoryBindingSource.DataSource != myWarehouse.Inventory)
+            {
+                inventoryBindingSource.DataSource = myWarehouse.Inventory;
+            }
+            // Сигнал посереднику: "Дані змінилися, онови таблицю акуратно!"
+            inventoryBindingSource.ResetBindings(false);
 
-            dataGridView1.DataSource = safeData;
-
-            UpdateStatistics(); // ОСЬ ЦЕЙ РЯДОК змусить програму перерахувати цифри і змінити текст
+            UpdateStatistics(); // ЦЕЙ РЯДОК змусить програму перерахувати цифри і змінити текст
         }
 
         // Кнопка додавання нового товару в каталог
@@ -118,7 +130,7 @@ namespace Warehouse
             myWarehouse.SaveData(); // Зберігаємо дані перед тим, як вікно зникне
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnHistory_Click(object sender, EventArgs e)
         {
             HistoryForm historyForm = new HistoryForm(myWarehouse.Waybills);
             historyForm.ShowDialog();
@@ -145,8 +157,6 @@ namespace Warehouse
 
                 // Оновлюємо інтерфейс
                 UpdateGrid(); // Таблиця стане порожньою
-                UpdateStatistics(); // Лейбл внизу покаже нулі
-                myWarehouse.SaveData();
             }
         }
 
@@ -154,25 +164,23 @@ namespace Warehouse
         {
             string query = txtSearch.Text.ToLower();
 
-            // Якщо ми стерли весь текст у пошуку - просто повертаємо стандартну таблицю
             if (string.IsNullOrWhiteSpace(query))
             {
-                UpdateGrid();
-                return;
+                // Якщо пошук стерли — повертаємо посереднику повний список
+                inventoryBindingSource.DataSource = myWarehouse.Inventory;
             }
-
-            // Якщо текст є - фільтруємо
-            var filteredList = myWarehouse.Inventory.Where(p => p.Name.ToLower().Contains(query)).ToList();
-
-            dataGridView1.DataSource = null;
-            dataGridView1.DataSource = filteredList;
-
-            // Оновлюємо статистику (хоча вона все одно рахуватиме весь склад, 
-            // але це захистить від візуальних багів)
+            else
+            {
+                // Якщо ввели текст — даємо посереднику відфільтрований шматок
+                var filteredList = myWarehouse.Inventory.Where(p => p.Name.ToLower().Contains(query)).ToList();
+                inventoryBindingSource.DataSource = filteredList;
+            }
+            // Кажемо посереднику оновити картинку
+            inventoryBindingSource.ResetBindings(false);
             UpdateStatistics();
         }
 
-        private void btnEditProduct_Click_1(object sender, EventArgs e)
+        private void btnEditProduct_Click(object sender, EventArgs e)
         {
             if (dataGridView1.CurrentRow != null)
             {
@@ -220,7 +228,7 @@ namespace Warehouse
             }
         }
 
-        private void saveToolStripMenuItem_Click_1(object sender, EventArgs e)
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             myWarehouse.SaveData();
             MessageBox.Show("Збережено!");

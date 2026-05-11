@@ -93,7 +93,7 @@
             btnHistory.TabIndex = 5;
             btnHistory.Text = "Історія операцій";
             btnHistory.UseVisualStyleBackColor = true;
-            btnHistory.Click += button1_Click;
+            btnHistory.Click += btnHistory_Click;
             // 
             // btnResetBase
             // 
@@ -127,7 +127,7 @@
             btnEditProduct.TabIndex = 2;
             btnEditProduct.Text = "Редагувати товар";
             btnEditProduct.UseVisualStyleBackColor = true;
-            btnEditProduct.Click += btnEditProduct_Click_1;
+            btnEditProduct.Click += btnEditProduct_Click;
             // 
             // dataGridView1
             // 
@@ -166,7 +166,7 @@
             saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             saveToolStripMenuItem.Size = new Size(117, 22);
             saveToolStripMenuItem.Text = "Save";
-            saveToolStripMenuItem.Click += saveToolStripMenuItem_Click_1;
+            saveToolStripMenuItem.Click += saveToolStripMenuItem_Click;
             // 
             // saveAsToolStripMenuItem
             // 

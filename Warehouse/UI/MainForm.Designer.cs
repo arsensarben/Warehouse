@@ -140,6 +140,7 @@
             dataGridView1.ReadOnly = true;
             dataGridView1.ShowCellToolTips = false;
             dataGridView1.Size = new Size(776, 291);
+            dataGridView1.StandardTab = true;
             dataGridView1.TabIndex = 1;
             dataGridView1.TabStop = false;
             dataGridView1.CellFormatting += dataGridView1_CellFormatting;

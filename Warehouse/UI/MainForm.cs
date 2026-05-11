@@ -99,30 +99,49 @@ namespace Warehouse
 
         private void btnDeleteProduct_Click(object sender, EventArgs e)
         {
-            // Перевіряємо, чи взагалі вибрано якийсь рядок у таблиці
-            if (dataGridView1.CurrentRow != null)
-            {
-                // Дістаємо товар з виділеного рядка (там, де стоїть чорна стрілочка)
-                Product selectedProduct = (Product)dataGridView1.CurrentRow.DataBoundItem;
+            // Рахуємо, скільки рядків реально виділено
+            int selectedCount = dataGridView1.SelectedRows.Count;
 
-                // Виводимо вікно з підтвердженням (змінили кнопки на ОК/Отмена)
+            if (selectedCount == 0)
+            {
+                MessageBox.Show("Будь ласка, оберіть товар(и) для видалення!", "Увага", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // СЦЕНАРІЙ 1: Виділено тільки ОДИН товар
+            if (selectedCount == 1)
+            {
+                Product selectedProduct = (Product)dataGridView1.SelectedRows[0].DataBoundItem;
+
                 DialogResult result = MessageBox.Show(
                     $"Ви дійсно хочете видалити товар '{selectedProduct.Name}' з каталогу?",
                     "Підтвердження видалення",
-                    MessageBoxButtons.OKCancel, // <--- Змінили тут
-                    MessageBoxIcon.Question);
+                    MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
 
-                // Якщо користувач натиснув "ОК" або клавішу Enter
-                if (result == DialogResult.OK) // <--- Змінили тут
+                if (result == DialogResult.OK)
                 {
-                    myWarehouse.Inventory.Remove(selectedProduct); // Видаляємо товар зі складу
-                    UpdateGrid(); // Оновлюємо таблицю, щоб рядок зник з екрана
+                    myWarehouse.Inventory.Remove(selectedProduct);
+                    UpdateGrid();
                 }
             }
+            // СЦЕНАРІЙ 2: Виділено БАГАТО товарів
             else
             {
-                // Якщо таблиця порожня або користувач клікнув кудись не туди
-                MessageBox.Show("Будь ласка, оберіть товар для видалення!", "Увага", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                DialogResult result = MessageBox.Show(
+                    $"Ви дійсно хочете видалити {selectedCount} обраних товарів з каталогу?",
+                    "Масове видалення",
+                    MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+
+                if (result == DialogResult.OK)
+                {
+                    // Проходимось циклом по всіх виділених рядках і видаляємо їх зі складу
+                    foreach (DataGridViewRow row in dataGridView1.SelectedRows)
+                    {
+                        Product p = (Product)row.DataBoundItem;
+                        myWarehouse.Inventory.Remove(p);
+                    }
+                    UpdateGrid(); // Оновлюємо таблицю один раз у самому кінці
+                }
             }
         }
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)

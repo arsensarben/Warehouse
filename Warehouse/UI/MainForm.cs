@@ -146,7 +146,17 @@ namespace Warehouse
         }
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            myWarehouse.SaveData(); // Зберігаємо дані перед тим, як вікно зникне
+            DialogResult result = MessageBox.Show(
+                    "Зберегти поточний стан складу перед виходом?",
+                    "Збереження",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                myWarehouse.SaveData();
+            }
+            // Якщо No - програма просто закриється, не чіпаючи файл JSON
         }
 
         private void btnHistory_Click(object sender, EventArgs e)

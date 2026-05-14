@@ -69,6 +69,7 @@
             // textBoxName
             // 
             textBoxName.Location = new Point(220, 33);
+            textBoxName.MaxLength = 100;
             textBoxName.Name = "textBoxName";
             textBoxName.Size = new Size(120, 23);
             textBoxName.TabIndex = 0;
@@ -76,6 +77,7 @@
             // textBoxUnit
             // 
             textBoxUnit.Location = new Point(220, 65);
+            textBoxUnit.MaxLength = 100;
             textBoxUnit.Name = "textBoxUnit";
             textBoxUnit.Size = new Size(120, 23);
             textBoxUnit.TabIndex = 1;

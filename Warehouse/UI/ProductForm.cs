@@ -48,6 +48,14 @@ namespace Warehouse
                 return;
             }
 
+            //  ВАЛІДАЦІЯ ЮНІТА: Захист від цифр та вимога наявності літер
+            string unit = textBoxUnit.Text.Trim();
+            if (!unit.Any(char.IsLetter) || unit.Any(char.IsDigit))
+            {
+                MessageBox.Show("Одиниця виміру має містити лише літери (наприклад: кг, шт, л) і не може містити цифр!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             // Захист від введення від'ємної або нульової ціни
             if (numPrice.Value <= 0)
             {
@@ -59,7 +67,6 @@ namespace Warehouse
             if (_productToEdit != null)
             {
                 // .Trim() видаляє зайві пробіли на початку та в кінці тексту, якщо юзер випадково їх поставив
-                _productToEdit.Name = textBoxName.Text.Trim();
                 _productToEdit.Name = textBoxName.Text.Trim();
                 _productToEdit.Unit = textBoxUnit.Text.Trim();
                 _productToEdit.Price = numPrice.Value;

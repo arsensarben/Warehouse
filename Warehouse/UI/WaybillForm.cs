@@ -8,19 +8,23 @@ namespace Warehouse
 {
     public partial class WaybillForm : Form
     {
+        // Властивість для збереження новоствореної накладної, яку потім забере головна форма
         public Waybill CreatedWaybill { get; private set; }
 
+        // Конструктор приймає актуальний список товарів зі складу для випадаючого списку
         public WaybillForm(List<Product> availableProducts)
         {
+            // Ініціалізує та створює всі візуальні компоненти (таблиці, кнопки), налаштовані в дизайнері
             InitializeComponent();
 
+            // Прив'язка даних до ComboBox: передаємо список об'єктів і кажемо відображати поле "Name"
             cmbProducts.DataSource = availableProducts;
             cmbProducts.DisplayMember = "Name";
         }
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            // Стара перевірка: чи обрано товар
+            // ВАЛІДАЦІЯ: Перевіряємо, чи користувач взагалі обрав товар
             if (cmbProducts.SelectedItem == null)
             {
                 MessageBox.Show("Оберіть товар зі списку!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -29,27 +33,30 @@ namespace Warehouse
 
             int quantity = (int)numQuantity.Value;
 
-            // НОВА ПЕРЕВІРКА НА НУЛЬ АБО ВІД'ЄМНЕ ЗНАЧЕННЯ
+            // ВАЛІДАЦІЯ: Перевірка на нуль або від'ємне значення 
             if (quantity <= 0)
             {
                 MessageBox.Show("Кількість товару в накладній має бути більшою за нуль!", "Помилка вводу", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
+            // Отримуємо фізичний об'єкт товару, який юзер виділив у випадаючому списку
             Product selectedProduct = (Product)cmbProducts.SelectedItem;
 
             // Створення накладної
             CreatedWaybill = new Waybill
             {
+                // Генеруємо унікальний номер накладної на основі поточного часу (тіків процесора)
                 Number = "INV-" + DateTime.Now.Ticks.ToString().Substring(10),
                 Date = DateTime.Now,
+                // Визначаємо тип операції за допомогою RadioButton (Прибуток/Видаток)
                 IsIncoming = rbIncoming.Checked
             };
 
             // Додаємо вибраний товар і його кількість у словник накладної
             CreatedWaybill.Items.Add(new WaybillItem { Product = selectedProduct, Quantity = quantity });
 
-            // Кажемо системі, що все добре, і закриваємо вікно
+            // Сигнал системі, що накладна успішно сформована
             this.DialogResult = DialogResult.OK;
             this.Close();
         }

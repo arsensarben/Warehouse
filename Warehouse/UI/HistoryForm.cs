@@ -6,9 +6,13 @@ namespace Warehouse
 {
     public partial class HistoryForm : Form
     {
+        // Конструктор форми приймає готовий список накладних із головного вікна
         public HistoryForm(List<Waybill> waybills)
         {
+            // Ініціалізує та створює всі візуальні компоненти (таблиці, кнопки), налаштовані в дизайнері
             InitializeComponent();
+
+            // Напряму згодовуємо список таблиці, і вона сама розіб'є його на колонки
             dataGridViewHistory.DataSource = waybills;
         }
 
@@ -30,6 +34,11 @@ namespace Warehouse
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information
                 );
+            }
+            // Реалізовано закриття форми на Esc
+            else if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
             }
         }
     }

@@ -2,6 +2,7 @@
 
 namespace Warehouse.Models
 {
+    // Клас-модель, що описує базову сутність "Товар" у нашій системі
     public class Product
     {
         public string Name { get; set; }

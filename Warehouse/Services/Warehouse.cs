@@ -7,6 +7,7 @@ using System.Text.Json;
 
 namespace Warehouse.Services
 {
+    // Головний клас, який об'єднує всі дані програми
     public class Warehouse
     {
         public List<Product> Inventory { get; set; } = new List<Product>();
@@ -17,7 +18,7 @@ namespace Warehouse.Services
             Waybills.Add(waybill);
             foreach (var item in waybill.Items)
             {
-                // ШУКАЄМО ПО СНАПШОТУ
+                // ШУКАЄМО ПО СНАПШОТУ, щоб уникнути втрати зв'язку, якщо оригінал змінено
                 var product = Inventory.FirstOrDefault(p => p.Name == item.ProductNameSnapshot);
 
                 if (product != null)
@@ -27,7 +28,7 @@ namespace Warehouse.Services
                 }
                 else
                 {
-                    // Якщо це зовсім новий товар (з UI він сюди прийде живим)
+                    // Просто перевірка ()
                     item.Product.Quantity = item.Quantity;
                     item.Product.LastDeliveryDate = waybill.Date;
                     Inventory.Add(item.Product);
@@ -40,7 +41,7 @@ namespace Warehouse.Services
             Waybills.Add(waybill);
             foreach (var item in waybill.Items)
             {
-                // ШУКАЄМО ПО СНАПШОТУ!
+                // ШУКАЄМО ПО СНАПШОТУ для збереження цілісності історії
                 var product = Inventory.FirstOrDefault(p => p.Name == item.ProductNameSnapshot);
 
                 if (product != null && product.Quantity >= item.Quantity)
@@ -59,7 +60,7 @@ namespace Warehouse.Services
         {
             // Налаштовуємо красиве форматування JSON (з відступами)
             var options = new JsonSerializerOptions { WriteIndented = true };
-            // Перетворюємо весь наш склад (товари і накладні) у текст
+            // Перетворюємо весь наш склад (товари і накладні) у JSON-рядок
             string json = JsonSerializer.Serialize(this, options);
             // Записуємо текст у файл (стандартний або обраний користувачем)
             File.WriteAllText(filePath, json);
@@ -72,7 +73,7 @@ namespace Warehouse.Services
             if (File.Exists(filePath))
             {
                 string json = File.ReadAllText(filePath);
-                // Розшифровуємо текст назад у об'єкт складу
+                // Розшифровуємо об'єкт Warehouse із збереженого JSON-рядка
                 var loaded = JsonSerializer.Deserialize<Warehouse>(json);
 
                 if (loaded != null)
